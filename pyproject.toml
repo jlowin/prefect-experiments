@@ -1,0 +1,62 @@
+[project]
+name = "prefect-experiments"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "Jeremiah Lowin", email = "153965+jlowin@users.noreply.github.com" },
+]
+dependencies = ["prefect>=2.18.0"]
+readme = "README.md"
+requires-python = ">= 3.8"
+
+[project.optional-dependencies]
+tests = [
+    "pytest-asyncio",
+    "pytest-env",
+    "pytest-rerunfailures",
+    "pytest-sugar",
+    "pytest>=8.0",
+    "pytest-timeout",
+    "pytest-xdist",
+    "pre-commit>=3.7.0",
+
+]
+dev = [
+    "prefect-experiments[tests]",
+    "ipython>=8.22.2",
+    "pdbpp>=0.10.3",
+    "ruff>=0.3.4",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/prefect_experiments"]
+
+# ruff configuration
+[tool.ruff]
+target-version = "py311"
+lint.extend-select = ["I"]
+lint.dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$" # default, but here in case we want to change it
+
+[tool.ruff.format]
+quote-style = "double"
+skip-magic-trailing-comma = false
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ['I', 'F401', 'E402']
+"conftest.py" = ["F401", "F403"]
+'tests/fixtures/*.py' = ['F401', 'F403']
+"src/control_flow/utilities/types.py" = ['F401']
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
