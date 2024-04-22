@@ -13,7 +13,8 @@ async def task_context(
     Create a task context for running functions inside a Prefect task.
 
     This is useful for running arbitrary code or third party libraries as a
-    Prefect task without having to define a new function.
+    Prefect task without having to define a new function. The runtime of the task
+    is controlled by the task context.
 
     Example:
     ```python

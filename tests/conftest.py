@@ -1,8 +1,7 @@
 import asyncio
 
 import pytest
-
-from .fixtures import *
+from prefect_experiments.fixtures import *
 
 
 @pytest.fixture(scope="session")
