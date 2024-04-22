@@ -45,13 +45,12 @@ async def task_context(
     engine = TaskRunEngine(task=task, parameters=parameters)
     async with engine.start() as run:
         await run.begin_run()
-        while run.is_running():
-            async with run.enter_run_context():
-                try:
-                    async with timeout(run.task.timeout_seconds):
-                        yield run
-                        await run.handle_success(result=None)
-                        return
-                except Exception as exc:
-                    await run.handle_exception(exc)
-                    raise
+        async with run.enter_run_context():
+            try:
+                async with timeout(run.task.timeout_seconds):
+                    yield run
+                    await run.handle_success(result=None)
+                    return
+            except Exception as exc:
+                await run.handle_exception(exc)
+                raise
