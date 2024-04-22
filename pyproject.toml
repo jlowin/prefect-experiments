@@ -11,7 +11,7 @@ requires-python = ">= 3.8"
 
 [project.optional-dependencies]
 tests = [
-    "pytest-asyncio",
+    "anyio",
     "pytest-env",
     "pytest-rerunfailures",
     "pytest-sugar",
